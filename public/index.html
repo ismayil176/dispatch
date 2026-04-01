@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Route NOTAM Checker</title>
+    <meta
+      name="description"
+      content="NAVBLUE export NOTAM faylını yüklə, route-u daxil et və route üzərində NOTAM mention-ları ilə ölkə estimate-ni yoxla."
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/mammoth@1.12.0/mammoth.browser.min.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">AZAL Dispatch üçün daxili helper</p>
+          <h1>Route NOTAM Checker</h1>
+          <p class="hero-copy">
+            NAVBLUE-dan export etdiyiniz <strong>PDF</strong> və ya <strong>DOCX</strong>
+            NOTAM faylını yükləyin, route-ları daxil edin, sistem route token-larını
+            NOTAM text-i ilə yoxlasın və route boyunca keçilən ölkələri təxmini çıxarsın.
+          </p>
+        </div>
+        <div class="hero-badges">
+          <span class="badge neutral">Cloudflare Pages üçün statik</span>
+          <span class="badge neutral">Browser daxilində işləyir</span>
+          <span class="badge warning">Operational judgment əvəz etmir</span>
+        </div>
+      </header>
+
+      <main class="layout-grid">
+        <section class="card control-card">
+          <div class="section-head">
+            <h2>1) NOTAM mənbəyi</h2>
+            <p>PDF, DOCX və ya TXT. Fayl browser daxilində oxunur, serverə göndərilmir.</p>
+          </div>
+
+          <label class="field">
+            <span class="field-label">NOTAM faylı</span>
+            <input id="notamFile" type="file" accept=".pdf,.docx,.txt,.text,.md" />
+          </label>
+
+          <div id="notamStatus" class="status-panel info">Hələ NOTAM faylı yüklənməyib.</div>
+
+          <label class="field">
+            <span class="field-label">və ya NOTAM text yapışdır</span>
+            <textarea
+              id="notamPaste"
+              rows="8"
+              placeholder="İstəsən PDF/DOCX əvəzinə NOTAM text-i birbaşa buraya yapışdır."
+            ></textarea>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Opsional: əlavə nav reference faylı</span>
+            <input id="navFile" type="file" accept=".csv,.json,.txt" />
+            <small>
+              Format nümunəsi: <code>IDENT,LATITUDE,LONGITUDE,COUNTRY_CODE,COUNTRY_NAME,TYPE</code>
+            </small>
+          </label>
+          <div id="navStatus" class="status-panel subtle">Əlavə nav reference yüklənməyib.</div>
+        </section>
+
+        <section class="card control-card">
+          <div class="section-head">
+            <h2>2) Route-lar</h2>
+            <p>Hər sətirdə bir route yaz. Sistem hər route-u ayrıca yoxlayacaq.</p>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Route input</span>
+            <textarea
+              id="routesInput"
+              rows="8"
+              placeholder="Məsələn: UBBB BAMAK1B BAMAK T480 PIROG N39 ULDUS N319 ZDN G452 LKA LKA7G VIDP"
+            ></textarea>
+          </label>
+
+          <div class="button-row">
+            <button id="sampleBtn" class="secondary">Sample route doldur</button>
+            <button id="analyzeBtn">Yoxlamanı başlat</button>
+            <button id="exportBtn" class="secondary" disabled>Nəticəni JSON export et</button>
+            <button id="clearBtn" class="ghost">Təmizlə</button>
+          </div>
+
+          <div class="disclaimer-block">
+            <strong>Qeyd:</strong>
+            NOTAM uyğunluğu bu versiyada yüklənmiş mətn daxilində route token-larının
+            mention olunmasına əsaslanır. Ölkələr hissəsi isə open nav reference data +
+            xətti interpolation əsasında <em>təxmini</em> hesablanır.
+          </div>
+        </section>
+      </main>
+
+      <section id="summaryCard" class="card summary-card hidden">
+        <div class="section-head">
+          <h2>Yekun</h2>
+          <p>Yüklənmiş NOTAM text-i və route-lar üzrə ümumi nəticə.</p>
+        </div>
+        <div id="summaryMetrics" class="summary-metrics"></div>
+      </section>
+
+      <section class="card results-card">
+        <div class="section-head">
+          <h2>3) Nəticələr</h2>
+          <p>Hər route üçün matched token-lar, snippet-lər və ölkə estimate-si.</p>
+        </div>
+        <div id="resultsEmpty" class="empty-state">
+          NOTAM faylını yüklə və route yazandan sonra nəticələr burada görünəcək.
+        </div>
+        <div id="resultsContainer" class="results-stack"></div>
+      </section>
+    </div>
+
+    <template id="routeCardTemplate">
+      <article class="route-card">
+        <div class="route-card-head">
+          <div>
+            <p class="route-label">Route</p>
+            <h3 class="route-title"></h3>
+          </div>
+          <div class="route-badges"></div>
+        </div>
+        <div class="route-meta"></div>
+        <div class="token-strip"></div>
+        <div class="route-sections"></div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
