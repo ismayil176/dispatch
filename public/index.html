@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AZAL Route NOTAM Checker</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div>
+          <span class="eyebrow">AZAL Dispatch</span>
+          <h1>Route NOTAM Checker</h1>
+          <p>NAVBLUE flight plan PDF yukle, route daxil et, sistem route uzerinde NOTAM var ya yoxdur gostersin ve kecdiyi olkeleri cixartsin.</p>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel">
+          <div class="panel-title">1. NAVBLUE Flight Plan PDF</div>
+          <label class="upload-zone" for="pdfFile">
+            <input id="pdfFile" type="file" accept="application/pdf" />
+            <span class="upload-title">PDF sec</span>
+            <span class="upload-subtitle">Yalniz NAVBLUE flight plan PDF</span>
+          </label>
+          <div id="fileMeta" class="file-meta">Hele fayl secilmeyib.</div>
+          <div class="status-card">
+            <div id="statusText" class="status-line">PDF gozlenilir.</div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">2. Route</div>
+          <textarea id="routesInput" rows="9" spellcheck="false" placeholder="Her setirde 1 route&#10;&#10;VRMM MUNUT1A MUNUT R329 ANODA UL425 ODOLI A474 BBB G208 APANO G451 AAE Z8 POVOS R462 KE B210 NH G326 LUBNA DCT 2925N06959E DCT HILAL G202 ZB L750 RANAH B449 ETRAP B447 KRS B143 TUNEK A909 RODAR M11 AMOKU AMOKU1G UBBB"></textarea>
+          <div class="actions">
+            <button id="sampleBtn" class="btn btn-secondary" type="button">Numune</button>
+            <button id="analyzeBtn" class="btn btn-primary" type="button">Yoxla</button>
+            <button id="clearBtn" class="btn btn-ghost" type="button">Temizle</button>
+          </div>
+        </section>
+      </main>
+
+      <section id="results" class="results"></section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
