@@ -1,0 +1,45 @@
+{
+  "version": "team-export-schema-example",
+  "coverageNote": "Schema example. Replace placeholder values with verified data from your own dataset.",
+  "_comment": "For route-level live checks, verified FIR itemA codes matter.",
+  "airports": {
+    "OPLA": {
+      "name": "Allama Iqbal International Airport",
+      "city": "Lahore",
+      "country": "Pakistan",
+      "fir": "Lahore FIR",
+      "notamItemA": "OPLA",
+      "faaLocId": "OPLA"
+    }
+  },
+  "waypoints": {
+    "EXTRA1": {
+      "country": "Pakistan",
+      "fir": "Lahore FIR",
+      "firItemA": "<SET_VERIFIED_FIR_ITEMA>"
+    }
+  },
+  "airways": {
+    "L509": {
+      "countries": ["Pakistan"],
+      "firs": ["Lahore FIR"],
+      "firItemAs": ["<SET_VERIFIED_FIR_ITEMA>"]
+    }
+  },
+  "procedures": {
+    "EXTRA1A": {
+      "kind": "SID",
+      "airport": "OPLA"
+    }
+  },
+  "manualAdvisories": [
+    {
+      "selector": {
+        "fir": "Lahore FIR"
+      },
+      "level": "review",
+      "title": "Custom FIR reminder",
+      "text": "This is an example manual advisory added through custom navdata."
+    }
+  ]
+}

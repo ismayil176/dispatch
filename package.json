@@ -1,0 +1,14 @@
+{
+  "name": "azal-autorouter-faa-worker",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node ./scripts/check.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.15.2"
+  }
+}

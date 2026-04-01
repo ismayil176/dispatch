@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AZAL Route NOTAM Checker</title>
+    <meta
+      name="description"
+      content="Cloudflare Worker üzərində route parser + autorouter live check + FAA quick-check fallback MVP."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">Cloudflare-ready</p>
+          <h1>AZAL Route NOTAM Checker</h1>
+          <p class="muted">
+            Route-u paste et. Sistem token-ləri ayırır, ölkə və FIR summary yaradır, sonra
+            autorouter ilə live itemA query edir, FAA üçün isə quick-check fallback link-ləri verir.
+          </p>
+        </div>
+        <div class="hero-badges">
+          <span class="badge">autorouter live query</span>
+          <span class="badge">FAA quick-check fallback</span>
+          <span class="badge badge-warn">coverage honesty</span>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <div class="card">
+          <h2>Route input</h2>
+          <label class="label" for="routeInput">Route</label>
+          <textarea id="routeInput" rows="5" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="analyzeBtn">Yoxla</button>
+            <button id="sampleBtn" class="secondary">Nümunə route</button>
+            <button id="clearBtn" class="ghost">Təmizlə</button>
+          </div>
+          <p class="hint">
+            SID/STAR və metadata FAA quick-check üçün avtomatik təmizlənir, amma əsas raw route
+            ayrıca saxlanır.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Custom navdata</h2>
+          <p class="muted small">
+            Öz JSON navdata faylını yükləyib FIR itemA, airport itemA və əlavə waypoint/airway mapping verə bilərsən.
+          </p>
+          <input id="navdataInput" type="file" accept="application/json" />
+          <div class="actions compact">
+            <button id="removeNavdataBtn" class="ghost">Custom data-nı sil</button>
+          </div>
+          <pre id="navdataStatus" class="mini-panel">Heç bir custom navdata yüklənməyib.</pre>
+        </div>
+      </section>
+
+      <section class="grid three">
+        <div class="card">
+          <h2>App status</h2>
+          <div id="metaStatus" class="status-block">Yüklənir...</div>
+        </div>
+        <div class="card">
+          <h2>Coverage</h2>
+          <div id="coveragePanel" class="status-block">-</div>
+        </div>
+        <div class="card">
+          <h2>Summary</h2>
+          <div id="summaryPanel" class="status-block">-</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Overall status</h2>
+        <div id="overallPanel" class="overall-panel review">
+          <div class="overall-title">Hazır deyil</div>
+          <div class="overall-text">İlk analizdən sonra nəticə burada görünəcək.</div>
+        </div>
+      </section>
+
+      <section class="grid two results">
+        <div class="card">
+          <h2>Provider status</h2>
+          <div id="providerPanel" class="stack"></div>
+        </div>
+        <div class="card">
+          <h2>FAA quick-check</h2>
+          <div id="quickChecksPanel" class="stack"></div>
+        </div>
+      </section>
+
+      <section class="grid two results">
+        <div class="card">
+          <h2>Live alerts</h2>
+          <div id="liveAlertsPanel" class="stack"></div>
+        </div>
+        <div class="card">
+          <h2>Advisories</h2>
+          <div id="advisoryPanel" class="stack"></div>
+        </div>
+      </section>
+
+      <section class="grid two results">
+        <div class="card">
+          <h2>Countries / FIRs / itemA</h2>
+          <div id="targetsPanel" class="stack"></div>
+        </div>
+        <div class="card">
+          <h2>Limitations & notes</h2>
+          <div id="limitationsPanel" class="stack"></div>
+          <div id="notesPanel" class="stack top-gap"></div>
+        </div>
+      </section>
+
+      <section class="grid two results">
+        <div class="card">
+          <h2>Parsed route</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Type</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
+              <tbody id="parsedBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Legs</h2>
+          <div id="legsPanel" class="stack"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

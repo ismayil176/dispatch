@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "azal-autorouter-faa-worker",
+  "main": "src/index.js",
+  "compatibility_date": "2026-04-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "NOTAM_PROVIDER_MODE": "auto",
+    "FAA_FALLBACK_ENABLED": "true",
+    "FAA_EXPERIMENTAL_FETCH": "false",
+    "AUTOROUTER_API_BASE": "https://api.autorouter.aero/v1.0",
+    "AUTOROUTER_NOTAM_LIMIT": "100"
+  }
+}
