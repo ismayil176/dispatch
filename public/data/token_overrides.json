@@ -1,0 +1,21 @@
+{
+  "UBBB": {"code": "AZ", "name": "Azerbaijan"},
+  "BAMAK": {"code": "AZ", "name": "Azerbaijan"},
+  "NAMAS": {"code": "AZ", "name": "Azerbaijan"},
+  "RODAR": {"code": "AZ", "name": "Azerbaijan"},
+  "TUNEK": {"code": "TM", "name": "Turkmenistan"},
+  "KRS": {"code": "TM", "name": "Turkmenistan"},
+  "ETRAP": {"code": "TM", "name": "Turkmenistan"},
+  "DOLOS": {"code": "TM", "name": "Turkmenistan"},
+  "NINOP": {"code": "TM", "name": "Turkmenistan"},
+  "LEMOD": {"code": "TM", "name": "Turkmenistan"},
+  "PIROG": {"code": "TM", "name": "Turkmenistan"},
+  "ULDUS": {"code": "TM", "name": "Turkmenistan"},
+  "REGET": {"code": "AF", "name": "Afghanistan"},
+  "ZB": {"code": "PK", "name": "Pakistan"},
+  "ZDN": {"code": "PK", "name": "Pakistan"},
+  "MERUN": {"code": "IN", "name": "India"},
+  "LKA": {"code": "IN", "name": "India"},
+  "VIDF": {"code": "IN", "name": "India"},
+  "VIDP": {"code": "IN", "name": "India"}
+}

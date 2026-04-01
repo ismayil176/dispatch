@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AZAL Route NOTAM Checker</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">AZAL Dispatch</span>
+          <h1>Route NOTAM Checker</h1>
+          <p>
+            NAVBLUE flight plan PDF yüklə, route-ları daxil et, sistem hər route üçün
+            <strong>NOTAM var / yoxdur</strong> və <strong>keçdiyi ölkələri</strong> göstərsin.
+          </p>
+        </div>
+        <div class="hero-note">
+          <div class="hero-note-title">İş prinsipi</div>
+          <div class="hero-note-body">
+            PDF lokal olaraq brauzerdə OCR olunur. Məlumat xaricə göndərilmir.
+          </div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-primary">
+          <h2>1. NAVBLUE Flight Plan PDF</h2>
+          <label class="upload-zone" for="pdfFile">
+            <input id="pdfFile" type="file" accept="application/pdf" />
+            <span class="upload-title">PDF seç</span>
+            <span class="upload-subtitle">Yalnız NAVBLUE flight plan PDF</span>
+          </label>
+          <div id="fileMeta" class="file-meta muted">Hələ fayl seçilməyib.</div>
+          <div class="status-card" id="statusCard">
+            <div class="status-line" id="statusText">PDF gözlənilir.</div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>2. Route-lar</h2>
+          <textarea id="routesInput" rows="10" spellcheck="false" placeholder="Hər sətirdə 1 route&#10;&#10;UBBB NAMAS1C NAMAS N35 RODAR A909 TUNEK B143 KRS B447 ETRAP B449 DOLOS B475 NINOP A909 LEMOD N644 REGET G325 ZB L750 MERUN G452 LKA LKA7C VIDP"></textarea>
+          <div class="actions">
+            <button id="sampleBtn" class="btn btn-secondary" type="button">Nümunə route</button>
+            <button id="analyzeBtn" class="btn btn-primary" type="button">Yoxla</button>
+            <button id="clearBtn" class="btn btn-ghost" type="button">Təmizlə</button>
+          </div>
+        </section>
+      </main>
+
+      <section class="summary" id="summary" hidden>
+        <div class="summary-card">
+          <div class="summary-label">Analiz olunan route</div>
+          <div class="summary-value" id="summaryRoutes">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">NOTAM var</div>
+          <div class="summary-value" id="summaryHits">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">NOTAM yoxdur</div>
+          <div class="summary-value" id="summaryMisses">0</div>
+        </div>
+      </section>
+
+      <section id="results" class="results"></section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
